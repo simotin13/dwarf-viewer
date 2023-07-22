@@ -237,6 +237,7 @@ bool Elf64::GetElfFuncInfos(const uint8_t *bin, const uint64_t size, const std::
             }
 
             ElfFunctionInfo f;
+            Logger::DLog("strTabShdr.sh_offset:[%ld], sym.st_name:[%ld], sym.st_value:[%ld], sym.st_size:[%ld], sym.st_shndx:[%d]", strTabShdr.sh_offset, sym.st_name, sym.st_value, sym.st_size, sym.st_shndx);
             f.Name = GetStrFromStrTbl(&bin[strTabShdr.sh_offset], strTabShdr.sh_size, sym.st_name);
             f.Addr = sym.st_value;
             f.Size = sym.st_size;
@@ -256,6 +257,7 @@ std::string Elf64::GetStrFromStrTbl(const uint8_t *strTab, const uint64_t strTab
 {
     std::string str = "";
     uint64_t pos = offset;
+    Logger::DLog("GetStrFromStrTbl In offset=[%ld], strTabSize:[%ld]", offset, strTabSize);
     while(pos < strTabSize)
     {
         if (pos == 0)
